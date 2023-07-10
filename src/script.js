@@ -33,7 +33,7 @@ function displayForecast() {
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
-  let days = ["Thu", "Fri", "Sat", "Sun"];
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
   days.forEach(function(day){
  forecastHTML =
    forecastHTML +
@@ -86,14 +86,14 @@ function displayTemperature(response) {
 
   let iconElement = document.querySelector("#icon");
 
-  celsiusTemperature = response.data.main.temperature;
+  fahrenheitTemperature = response.data.temperature.current;
 
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
-  cityElement.innerHTML = response.data.name;
-  descriptionElement.innerHTML = response.data.condition[0].description;
-  humidityElement.innerHTML = response.data.main.humidity;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+  cityElement.innerHTML = response.data.city;
+  descriptionElement.innerHTML = response.data.condition.description;
+  humidityElement.innerHTML = response.data.temperature.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
-  dateElement.innerHTML = formatDate(response.data.dt * 1000);
+  dateElement.innerHTML = formatDate(response.data.time * 1000);
   iconElement.setAttribute(
     "src",
     `https://api.shecodes.io/img/wn/${response.data.condition[0].icon}@2x.png`
@@ -106,6 +106,7 @@ function displayTemperature(response) {
 function search(city) {
   let apiKey = "9744t6f0o4e5ad8e348bf3be3ae97427";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+
   axios.get(apiUrl).then(displayTemperature);
 }
 
