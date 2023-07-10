@@ -96,9 +96,9 @@ function displayTemperature(response) {
   dateElement.innerHTML = formatDate(response.data.time * 1000);
   iconElement.setAttribute(
     "src",
-    `https://api.shecodes.io/img/wn/${response.data.condition[0].icon}@2x.png`
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
-  iconElement.setAttribute("alt", response.data.condition[0].description);
+  iconElement.setAttribute("alt", response.data.condition.description);
 
   getForecast(response.data.coord);
 }
